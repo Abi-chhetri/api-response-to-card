@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+        body{
+            background: goldenrod;
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+        }
+        .card{
+            height: 20rem;
+            width: 14rem;
+            background: rgb(22, 22, 85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .img_cont{
+            background-color: aliceblue;
+            height: 17.5rem;
+            width: 11.5rem;
+            overflow: hidden;
+        }
+
+        .foll_cont{
+            height: 1.5rem;
+            width: 1.5rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+        }
+        button{
+          padding: 0.2rem;
+          font-family: 'Times New Roman', Times, serif;
+          font-size: medium;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 0	UNSENT	Client has been created. open() not called yet.
+1	OPENED	open() has been called.
+2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
+3	LOADING	Downloading; responseText holds partial data.
+4	DONE	The operation is complete. -->
+
+
+<div class="card">
+    <div class="img_cont">
+        <img src="" alt="">
+    </div>
+    <div class="foll_cont">
+        <button id="but">USER</button>
+        <div class="foll" style="color: white;">NAME</div>
+    </div>
+</div>
+</body>
+<script>
+    const requestUrl = 'https://randomuser.me/api/'
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', requestUrl)
+    xhr.onreadystatechange = function(){
+        console.log(xhr.readyState);
+        if (xhr.readyState === 4) {
+            const data = JSON.parse(this.responseText)
+            console.log(typeof data);
+            console.log(data)
+     
+            const firtsName=data.results[0].name.first;
+            const userImage=data.results[0].picture.large;
+            
+            
+
+
+
+            const image= document.querySelector("img");
+            const button=document.querySelector("button");
+            const followers=document.querySelector(".foll");
+
+                button.addEventListener("click",(e)=>{
+                    image.style.objectFit="cover";
+                    image.style.objectPosition="center";
+                    image.style.height="17.5rem"
+                    image.style.width="11.5rem"
+
+                    image.src=userImage;
+                 
+                    followers.innerHTML=firtsName;
+                })
+    
+        }
+    }
+    xhr.send();
+     
+
+    
+
+
+
+
+</script>
+</html>
